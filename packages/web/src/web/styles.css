@@ -1,0 +1,193 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Hedvig Letters Serif", ui-serif, Georgia, serif;
+
+  /* Warm editorial palette, mirroring the partner-page reference */
+  --color-ink: #1b140e;
+  --color-ink-strong: #180f08;
+  --color-ink-soft: #5c534c;
+  --color-muted: #7d746c;
+  --color-paper: #ffffff;
+  --color-cream: #fefaf6;
+  --color-cream-raised: #f8f1eb;
+  --color-line: #dde5e7;
+  --color-line-strong: #c6d2d4;
+  --color-lilac: #ece2ff;
+  --color-lilac-faint: #f8f4ff;
+  --color-purple: #7c3aed;
+  --color-purple-600: #6d28d9;
+  --color-greenres: #2f7d4f;
+  --radius-card: 10px;
+  --radius-frame: 14px;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1b140e;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #ece2ff;
+    color: #180f08;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@utility container-narrow {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* --- Type scale ------------------------------------------------------- */
+
+/* Serif display headline, regular weight, tight leading */
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  color: var(--color-ink-strong);
+}
+
+/* Tiny uppercase purple eyebrow */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-purple);
+}
+
+/* Small grey supporting sentence */
+@utility lede {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+}
+
+/* Card body copy — deliberately small, like the reference */
+@utility card-body {
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+/* Serif card heading */
+@utility card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  color: var(--color-ink-strong);
+}
+
+/* Spaced-out step numeral: 0 1 */
+@utility numeral {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  letter-spacing: 0.22em;
+  color: var(--color-purple);
+}
+
+/* --- Buttons ---------------------------------------------------------- */
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-purple);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+@utility btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line-strong);
+  background: #fff;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-ink);
+  transition: border-color 0.2s ease;
+}
+
+/* --- Motion ----------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .rise {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
